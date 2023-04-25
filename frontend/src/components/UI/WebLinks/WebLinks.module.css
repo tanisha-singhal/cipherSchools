@@ -1,0 +1,26 @@
+.weblinks{
+width:80%;
+margin-left: 10%;
+}
+
+.headline{
+    display:flex;
+    flex-direction:row ;
+    justify-content: space-between;
+    align-items: center;
+    padding:10px;
+}
+
+
+.input{
+    display:flex;
+    flex-direction: row;
+    border: 1px solid black;
+    height:30px;
+}
+.img{
+    margin: 5px;
+}
+.inp{
+    width:150px;
+}

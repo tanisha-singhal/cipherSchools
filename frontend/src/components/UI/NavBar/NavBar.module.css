@@ -1,0 +1,23 @@
+.header{
+    display:flex;
+    flex-direction: row;
+    justify-content:flex-start;
+    align-items: center;
+    background-color: white;
+    height:20%;
+    padding:10px;
+    border:solid 1px black;
+
+}
+.title{
+    margin-left: 2%;
+    margin-right: 2%;
+}
+.notif{
+ padding-left: 75%;
+ margin-right: 1%;
+}
+.hamburger{
+    margin-left: 5px;
+}
+

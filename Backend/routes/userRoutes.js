@@ -5,6 +5,7 @@ const jwt=require('jsonwebtoken');
 const User=require("../models/User");
 const {JWT_SECRET}=require('../secret');
 const fetchUser=require("../middleware/fetchUser");
+
 router.post("/register",async (req,res)=>{
 try {
     const user=await User.findOne({email:req.body.email});
