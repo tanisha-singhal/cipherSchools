@@ -9,14 +9,39 @@ import {
   Heading,
   CardBody,
   CardFooter,
+  //useToast,
   Text
 } from "@chakra-ui/react";
 import classes from './Login.module.css'
 import { Link } from 'react-router-dom';
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 function Login() {
-  // const [email, setEmail] = useState();
-  // const [password, setPassword] = useState();
+  //const toast = useToast();
+  const navigate = useNavigate ();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  
+  const SubmitHandler = async () => {
+    await axios
+        .post(
+          "http://localhost:5000/api/user/login",
+          { email, password}
+        )
+        .then(function(res) {
+
+          localStorage.setItem("userInfo", res.data.authToken);
+        
+          navigate("/profile");
+        })
+        .catch(function (error){
+          console.log(error);
+          
+        })
+  };
+
   return (
     <div className={classes.card}>
     <Card padding={10}>
@@ -28,7 +53,7 @@ function Login() {
         <FormLabel>Email</FormLabel>
         <Input
           placeholder="Enter Your Email"
-          
+          onChange={(e) => setEmail(e.target.value)}
         />
       </FormControl>
       <FormControl id="password" isRequired>
@@ -36,13 +61,14 @@ function Login() {
           <Input
             type={"password"}
             placeholder="Enter Password"
+            onChange={(e) => setPassword(e.target.value)}
           />
        </FormControl>
         <Button
         colorScheme="orange"
         width="100%"
         style={{ marginTop: 15 }}
-        //onClick={SubmitHandler}
+        onClick={SubmitHandler}
         //isLoading={loading}
       >
         Login

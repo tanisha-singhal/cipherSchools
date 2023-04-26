@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import NavBar from '../UI/NavBar/NavBar'
 import classes from './ProfilePage.module.css'
 import About from '../UI/About/About'
@@ -8,11 +8,50 @@ import ProfessInfo from '../UI/ProfessInfo/ProfessInfo'
 import Password from '../UI/Password/Password'
 import Interests from '../UI/Interests/Interests'
 import ProfileInfo from '../UI/ProfileInfo/ProfileInfo'
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom'
+
 function ProfilePage() {
+
+  const [user,setUser]=useState({
+    name: "",
+    email: "",
+    password: "",
+    interest: [],
+    followers: []
+  });
+  const navigate=useNavigate();
+
+  
+  useEffect(()=>{
+    if(localStorage.getItem("userInfo")){
+      const tokenId=localStorage.getItem("userInfo");
+      async function fetchUser(){
+        try {
+          const data=await axios.get('http://localhost:5000/api/user/getUser',{
+            headers:{
+              tokenId:tokenId,
+            }
+          });
+          //console.log(data.data);
+          setUser(data.data);
+          console.log(user);
+
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      fetchUser();
+    }else{
+      navigate('/Login');
+    }
+  },[]);
+
   return (
     <div className={classes.profile}>
-      <section><NavBar name="tanisha"/></section>
-      <section className={classes.userDetails}><ProfileInfo name="Tanisha" email="tanusinghal1000@gmail.com"/></section>
+      {console.log(user)}
+      <section><NavBar user={user}/></section>
+      <section className={classes.userDetails}><ProfileInfo user={user}/></section>
       <section className={classes.aboutme}><About/></section>
       <section className={classes.ciphermap}><Progressmap/></section>
       <section className={classes.weblinks}><WebLinks/></section>

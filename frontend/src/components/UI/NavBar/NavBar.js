@@ -4,6 +4,7 @@ import React from 'react'
 import classes from './NavBar.module.css'
 import { Select } from '@chakra-ui/react'
 function NavBar(props) {
+  console.log(props);
   return (
     <header className={classes.header}>
         <section className={classes.hamburger}><HamburgerIcon/></section>
@@ -17,7 +18,7 @@ function NavBar(props) {
         <option value='others'>Others</option>
         </Select>
         <div className={classes.notif}><BellIcon size='sm'/></div>
-        <div className={classes.avatar}><Avatar size='xs' name={props.name} src='https://bit.ly/broken-link' /></div>
+        <div className={classes.avatar}><Avatar size='xs' name={props.user.name} src='https://bit.ly/broken-link' /></div>
     </header>
   )
 }

@@ -7,25 +7,27 @@ const {JWT_SECRET}=require('../secret');
 const fetchUser=require("../middleware/fetchUser");
 
 router.post("/register",async (req,res)=>{
+    console.log(req);
 try {
     const user=await User.findOne({email:req.body.email});
         const salt = await bcrypt.genSalt(10);
         const secPass = await bcrypt.hash(req.body.password, salt)
+           //console.log(user);
             if (!user) {
-                let user = await User.create({
+                let Newuser = await User.create({
                     name: req.body.name,
                     password: secPass,
                     email: req.body.email,
                 });
-                const data = {
-                    user: {
-                        id: user.id
+                const data={
+                    user:{
+                        _id:Newuser._id
                     }
                 }
                 const authToken = jwt.sign(data, JWT_SECRET);
 
                 //res.send(req.body);
-                res.json({ authToken })
+                res.json({ authToken,Newuser })
                 return;
             }
 
@@ -41,6 +43,7 @@ router.post("/login",async(req,res)=>{
    const {email,password}=req.body;
    try {
     let user=await User.findOne({email});
+    //console.log(user);
     if(!user){
         return res.status(400).json({error:"please try to login with correct credentials."})
     }
@@ -50,18 +53,28 @@ router.post("/login",async(req,res)=>{
     }
     const data={
         user:{
-            id:user.id
+            _id:user._id
         }
     }
     const authToken=jwt.sign(data,JWT_SECRET);
-    res.json(authToken)
+    res.json({authToken,user})
    } catch (error) {
     console.log(error);
     res.status(500).send("Internal Server Error");
    }
 });
-
+router.get("/getUser",fetchUser,async(req,res)=>{
+    try {
+        //console.log(req);
+        const user=await User.findById({_id:req.user.user._id});
+        res.json(user);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Internal Server Error");
+    }
+});
 router.get("/followers/:id",fetchUser,async (req,res)=>{
+    console.log(req);
     try {
         const user=await User.findById(req.params.id);
         if(!user){
