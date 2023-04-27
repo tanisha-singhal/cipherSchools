@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import {
   FormControl,
   FormLabel,
@@ -9,7 +9,7 @@ import {
   Heading,
   CardBody,
   CardFooter,
-  //useToast,
+  useToast,
   Text
 } from "@chakra-ui/react";
 import classes from './Login.module.css'
@@ -19,24 +19,53 @@ import { useNavigate } from "react-router-dom";
 
 
 function Login() {
-  //const toast = useToast();
+  const toast = useToast();
   const navigate = useNavigate ();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  useEffect(()=>{
+    if(localStorage.getItem("userInfo")){
+      navigate('/Profile');
+    }
+  },[]);
   
   const SubmitHandler = async () => {
+    if (!email || !password) {
+      toast({
+        title: "Please Fill all the feilds",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      return;
+    }
     await axios
         .post(
           "http://localhost:5000/api/user/login",
           { email, password}
         )
         .then(function(res) {
-
+          toast({
+            title: "Login Successful",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+            position: "bottom",
+          });
           localStorage.setItem("userInfo", res.data.authToken);
         
           navigate("/profile");
         })
         .catch(function (error){
+          toast({
+            title: "Error Occured",
+            description:error.response.data.error,
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+            position: "bottom",
+          });
           console.log(error);
           
         })

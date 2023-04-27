@@ -31,7 +31,8 @@ try {
                 return;
             }
 
-            res.send({ msg: "user already exist!" });
+            res.status(400).json({error:"User already exists with this Email"});
+           
         }catch(error){
            console.log(error);
            res.status(500).send("Internal Server Error");

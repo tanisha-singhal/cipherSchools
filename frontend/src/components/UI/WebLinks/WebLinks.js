@@ -17,7 +17,7 @@ function WebLinks() {
           Edit
         </Button>
       </section>
-      <SimpleGrid minChildWidth='120px' spacingX='200px' spacingY='40px'>
+      <SimpleGrid spacingX='200px' spacingY='30px'>
         <Box d="flex" flex-direction="column">
           <Text marginBottom={2}>Linkedin</Text>
           <div className={classes.input}>

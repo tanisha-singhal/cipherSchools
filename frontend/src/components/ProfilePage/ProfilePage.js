@@ -21,21 +21,26 @@ function ProfilePage() {
     followers: []
   });
   const navigate=useNavigate();
-
+  
   
   useEffect(()=>{
     if(localStorage.getItem("userInfo")){
       const tokenId=localStorage.getItem("userInfo");
+     
       async function fetchUser(){
         try {
-          const data=await axios.get('http://localhost:5000/api/user/getUser',{
+          await axios.get('http://localhost:5000/api/user/getUser',{
             headers:{
               tokenId:tokenId,
             }
+          }).then((res)=>{
+                 const data=res.data;
+                 setUser(data);
+                //  console.log(user);
+                 
           });
           //console.log(data.data);
-          setUser(data.data);
-          console.log(user);
+          
 
         } catch (error) {
           console.log(error);
@@ -43,13 +48,13 @@ function ProfilePage() {
       }
       fetchUser();
     }else{
-      navigate('/Login');
+      navigate('/');
     }
-  },[]);
+  },[user]);
 
   return (
     <div className={classes.profile}>
-      {console.log(user)}
+      {localStorage.setItem("user",JSON.stringify(user))}
       <section><NavBar user={user}/></section>
       <section className={classes.userDetails}><ProfileInfo user={user}/></section>
       <section className={classes.aboutme}><About/></section>

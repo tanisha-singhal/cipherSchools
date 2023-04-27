@@ -1,23 +1,30 @@
-.header{
-    display:flex;
-    flex-direction: row;
-    justify-content:flex-start;
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 10px;
+  border: solid 1px black;
+  overflow: hidden;
+}
+.section{
+    /* width: 100%; */
+    display: flex;
     align-items: center;
-    background-color: white;
-    height:20%;
-    padding:10px;
-    border:solid 1px black;
-
 }
-.title{
-    margin-left: 2%;
-    margin-right: 2%;
+.notif {
+  margin-right: 3px;
 }
-.notif{
- padding-left: 75%;
- margin-right: 1%;
-}
-.hamburger{
-    margin-left: 5px;
+.title {
+  margin-left: 2%;
+  margin-right: 2%;
 }
 
+.hamburger {
+  margin-left: 5px;
+}
+.right {
+  display: flex;
+  flex-direction: row;
+}
