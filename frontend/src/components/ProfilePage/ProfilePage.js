@@ -50,7 +50,7 @@ function ProfilePage() {
     }else{
       navigate('/');
     }
-  },[user]);
+  },[user,navigate]);
 
   return (
     <div className={classes.profile}>
