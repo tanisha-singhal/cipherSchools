@@ -25,7 +25,8 @@ function Login() {
   const [password, setPassword] = useState();
   useEffect(()=>{
     if(localStorage.getItem("userInfo")){
-      navigate('/Profile');
+      localStorage.removeItem("userInfo");
+      localStorage.removeItem("user");
     }
   },[]);
   
@@ -42,7 +43,7 @@ function Login() {
     }
     await axios
         .post(
-          "http://localhost:5000/api/user/login",
+          `${process.env.REACT_APP_API_LINK}/api/user/login`,
           { email, password}
         )
         .then(function(res) {

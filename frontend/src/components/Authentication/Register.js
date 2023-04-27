@@ -33,7 +33,7 @@ function Register() {
       });
       return;
     }
-      await axios.post('http://localhost:5000/api/user/register',{
+      await axios.post(`${process.env.REACT_APP_API_LINK}/api/user/register`,{
         name:name,
         email:email,
         password:password

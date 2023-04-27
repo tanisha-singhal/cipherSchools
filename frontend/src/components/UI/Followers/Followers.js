@@ -9,7 +9,7 @@ function Followers() {
     async function getFollowers() {
       try {
         await axios
-          .get(`http://localhost:5000/api/user/followers/${user._id}`, {
+          .get(`${process.env.REACT_APP_API_LINK}/api/user/followers/${user._id}`, {
             headers: {
               tokenId: localStorage.getItem("userInfo"),
             },

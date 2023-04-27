@@ -9,7 +9,7 @@ function EditProfile(props) {
       }
       const handleUpdate = async () => {
         await axios
-          .post("http://localhost:5000/api/user/updateProfile",{name,email},{
+          .post(`${process.env.REACT_APP_API_LINK}/api/user/updateProfile`,{name,email},{
             headers:{
                 tokenId:localStorage.getItem("userInfo"),
               
@@ -26,7 +26,7 @@ function EditProfile(props) {
       };
 
   return (
-    <div className={classes.modalOverlay} onClick={onClose}>
+    <div className={classes.modalOverlay} >
       <div className={classes.modal}>
         <button className={classes.modalClose} onClick={onClose}>
           <CloseIcon />

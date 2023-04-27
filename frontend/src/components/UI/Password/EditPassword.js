@@ -7,7 +7,7 @@ function EditPassword(props) {
      const user=JSON.parse(localStorage.getItem("user"));
 
     const updatePassword=async ()=>{
-       await axios.post(`http://localhost:5000/api/user/updatePassword/${user._id}`,{newPassword,oldPassword},{
+       await axios.post(`${process.env.REACT_APP_API_LINK}/api/user/updatePassword/${user._id}`,{newPassword,oldPassword},{
         headers:{
             tokenId:localStorage.getItem("userInfo"),
         }

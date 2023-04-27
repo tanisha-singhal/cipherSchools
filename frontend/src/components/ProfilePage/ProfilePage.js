@@ -29,7 +29,7 @@ function ProfilePage() {
      
       async function fetchUser(){
         try {
-          await axios.get('http://localhost:5000/api/user/getUser',{
+          await axios.get(`${process.env.REACT_APP_API_LINK}/api/user/getUser`,{
             headers:{
               tokenId:tokenId,
             }
